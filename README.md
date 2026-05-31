@@ -42,27 +42,34 @@ AI (without this skill):               AI (with this skill):
 
 ## ⚡ Quick Start
 
-⏱️ **60 seconds from clone to first review**
+⏱️ **30 seconds from install to first review**
+
+**Option A — One-line install (recommended):**
 
 ```bash
-# 1. Clone
-git clone https://github.com/gtskevin/ai-native-review.git
-
-# 2. Install skill
-mkdir -p ~/.claude/skills/ai-native-review
-cp ai-native-review/skill.md ~/.claude/skills/ai-native-review/skill.md
-
-# 3. (Optional) Install companion design rule
-cp ai-native-review/rules/ai-native-design.md ~/.claude/rules/ai-native-design.md
+curl -fsSL https://raw.githubusercontent.com/gtskevin/ai-native-review/main/install.sh | bash
 ```
 
-In Claude Code:
+Auto-installs skill + companion design rule to `~/.claude/skills/`.
+
+**Option B — Manual install:**
+
+```bash
+git clone https://github.com/gtskevin/ai-native-review.git
+mkdir -p ~/.claude/skills/ai-native-review
+cp ai-native-review/skill.md ~/.claude/skills/ai-native-review/
+cp -r ai-native-review/rules ~/.claude/skills/ai-native-review/
+cp -r ai-native-review/examples ~/.claude/skills/ai-native-review/
+rm -rf ai-native-review
+```
+
+**Then in Claude Code:**
 
 ```
 /ai-native-review
 ```
 
-Then describe the tool you're building, or point Claude to existing code.
+Describe the tool you're building, or point Claude to existing code.
 
 **Expected output:**
 ```
@@ -253,9 +260,15 @@ ai-native-review/
 ### 安装
 
 ```bash
+# 一键安装（推荐）
+curl -fsSL https://raw.githubusercontent.com/gtskevin/ai-native-review/main/install.sh | bash
+
+# 或手动安装
 git clone https://github.com/gtskevin/ai-native-review.git
 mkdir -p ~/.claude/skills/ai-native-review
-cp ai-native-review/skill.md ~/.claude/skills/ai-native-review/skill.md
+cp ai-native-review/skill.md ~/.claude/skills/ai-native-review/
+cp -r ai-native-review/rules ~/.claude/skills/ai-native-review/
+rm -rf ai-native-review
 ```
 
 ---
