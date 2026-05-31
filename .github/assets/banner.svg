@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 220" width="800" height="220">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#064e3b"/>
+      <stop offset="50%" style="stop-color:#065f46"/>
+      <stop offset="100%" style="stop-color:#0d9488"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="220" rx="12" fill="url(#bgGrad)"/>
+  <!-- Decorative elements -->
+  <circle cx="680" cy="80" r="100" fill="white" opacity="0.03"/>
+  <circle cx="120" cy="180" r="60" fill="white" opacity="0.04"/>
+  <!-- Logo area -->
+  <rect x="60" y="60" width="80" height="80" rx="18" fill="rgba(255,255,255,0.12)"/>
+  <circle cx="88" cy="90" r="16" fill="none" stroke="white" stroke-width="3" opacity="0.9"/>
+  <line x1="100" y1="102" x2="115" y2="117" stroke="white" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+  <path d="M80 90 L86 96 L96 86" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <!-- Text -->
+  <text x="180" y="95" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="bold" fill="white">AI-Native Review</text>
+  <text x="180" y="130" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="rgba(255,255,255,0.85)">Catch the #1 anti-pattern before you build</text>
+  <text x="180" y="160" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="rgba(255,255,255,0.5)">Claude Code Skill · AI-Native Design · Structured Review</text>
+  <!-- Decorative stars -->
+  <path d="M700 40 L703 48 L711 48 L705 53 L707 61 L700 56 L693 61 L695 53 L689 48 L697 48 Z" fill="white" opacity="0.15"/>
+  <circle cx="740" cy="170" r="2.5" fill="white" opacity="0.2"/>
+  <circle cx="660" cy="180" r="2" fill="white" opacity="0.15"/>
+</svg>
