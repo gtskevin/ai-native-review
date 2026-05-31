@@ -1,89 +1,177 @@
-# AI-Native Design Review for Claude Code
+# AI-Native Design Review
 
-> Stop building AI-decorated tools. Start building AI-native ones.
+> **Catch the #1 anti-pattern before you build: AI designs the workflow, hardcoded rules do the actual work.**
 
-A [Claude Code](https://claude.ai/code) Skill that reviews your tool/Skill/Web App designs **before you build them** — catching the #1 mistake in AI-powered development: **AI orchestrates the workflow, but hardcoded rules do the actual judgment work.**
+A [Claude Code](https://claude.ai/code) Skill that reviews your tool designs **before you build** — identifying where AI is just orchestrating while rules do the real judgment.
 
-## The Problem
+[English](#what-it-does) | [中文说明](#中文说明)
 
-When AI builds tools, it has a strong bias toward writing deterministic rules (regex, if/else, templates) instead of using its own reasoning for core tasks. The result looks like this:
+---
+
+## What It Does
 
 ```
-AI designs the workflow  →  Rules execute the core logic  →  Output looks fine but misses the point
+  You describe a tool you're about to build
+              │
+              ▼
+  ┌─────────────────────────────┐
+  │  Step 0: Quick Gate         │ ← Too simple? Compliance? Skip.
+  └─────────────┬───────────────┘
+                ▼
+  ┌─────────────────────────────┐
+  │  Step 2: Decompose          │ ← Tag every subtask: 🧠⚙️📚👤
+  └─────────────┬───────────────┘
+                ▼
+  ┌─────────────────────────────┐
+  │  Step 3: Decision Tree      │ ← The core test
+  │                             │
+  │  Delete the AI call.        │
+  │  Still works? → DECORATED ❌│
+  │                            │
+  │  Better model = better out? │
+  │  No? → NOT AI-DRIVEN  ❌   │
+  │                            │
+  │  AI gets enough context?    │
+  │  No? → CONTEXT-STARVED ⚠️  │
+  │                            │
+  │  Prompt > hardcoded rule?   │
+  │  No? → DISGUISED RULE ❌   │
+  │  Yes → AI-NATIVE      ✅   │
+  └─────────────┬───────────────┘
+                ▼
+  ┌─────────────────────────────┐
+  │  Step 4: Anti-Pattern Scan  │ ← regex replacing judgment?
+  │  + Domain Exemptions        │    template replacing generation?
+  └─────────────┬───────────────┘   (compliance/security exempt)
+                ▼
+  ┌─────────────────────────────┐
+  │  Step 5: Open Judgment      │ ← What did the rules miss?
+  └─────────────┬───────────────┘
+                ▼
+         Structured Report
+  ┌─────────────────────────────┐
+  │ Findings with provenance    │
+  │ Priority matrix (P0→P3)     │
+  │ Cost-benefit "worth it?"    │
+  │ Drift risk markers          │
+  └─────────────────────────────┘
 ```
 
-This is called **AI-decorated** design. It's the most common anti-pattern in AI-powered tools — and it's invisible until you know what to look for.
+## Why This Matters
 
-## What This Skill Does
+When AI builds tools, it defaults to writing deterministic rules (regex, if/else, templates) instead of using its own reasoning. This happens because:
 
-Run `/ai-native-review` before building any new tool, Skill, or AI-powered feature. It will:
+1. **Training bias** — Most "good code" in training data is deterministic
+2. **Safety default** — Rules feel more "reliable" than probabilistic AI
+3. **No design instruction** — Without explicit guidance, AI takes the rule route
 
-1. **Decompose** your tool into subtasks and tag each one (🧠 judgment / ⚙️ precision / 👤 human)
-2. **Run a decision tree** on every 🧠 subtask:
-   - **Deletion Test** — Remove the AI call. Does it still work? If yes → AI-decorated ❌
-   - **Model Upgrade Test** — Would a better model improve results? If no → core isn't AI-driven ❌
-   - **Context Adequacy Test** — Does the AI actually receive enough information to make good judgments?
-   - **Soft Rule Test** — Is the prompt a living soft rule, or a hardcoded rule in disguise?
-3. **Scan for anti-patterns** (regex replacing judgment, templates replacing generation, etc.) with domain exemptions for compliance/security/performance
-4. **Produce a structured report** with prioritized action items, cost-benefit analysis, and drift risk assessment
+The result: **AI-decorated** tools that look smart but are actually "smart person directing fools."
 
-## Quick Start
+## Real Example
 
-### Install
+Reviewing a questionnaire-checking Skill ([full report](examples/ob-scale-review-report.md)):
+
+| Subtask | Nature | AI-native? | Context? |
+|---------|--------|-----------|----------|
+| Excel structure extraction | ⚙️ Precision | N/A — correct use of code | — |
+| Scale classification | 🧠 Judgment | ✅ Pass | ✅ |
+| Translation equivalence | 🧠 Judgment | ✅ Pass | ⚠️ Missing rubric |
+| Item-writing error detection | 🧠 Judgment | ✅ Pass | ✅ |
+| Respondent experience | 🧠 Judgment | ✅ Pass | ✅ |
+
+**Findings:**
+- 🟢 Core judgment correctly assigned to AI (5/5 for capability allocation)
+- 🟡 Missing evidence citation mechanism → added to report
+- 🟡 Missing confidence scoring → added to report
+- 🔵 Checklist mentality risk (15 error types may limit holistic judgment)
+
+## Install
 
 ```bash
-# Clone the repo
-git clone https://github.com/AdamHuang1314/ai-native-review.git
-
-# Install the English skill
+# Clone and install (one skill file)
+git clone https://github.com/gtskevin/ai-native-review.git
 mkdir -p ~/.claude/skills/ai-native-review
-cp ai-native-review/skills/ai-native-review-en/skill.md ~/.claude/skills/ai-native-review/skill.md
+cp ai-native-review/skill.md ~/.claude/skills/ai-native-review/skill.md
 
-# (Optional) Install the companion design rule
+# Optional: companion design rule (keeps AI-native principles active in every session)
 cp ai-native-review/rules/ai-native-design.md ~/.claude/rules/ai-native-design.md
-
-# (Optional) Chinese version
-cp ai-native-review/skills/ai-native-review-zh/skill.md ~/.claude/skills/ai-native-review/skill.md
 ```
 
-### Use
+## Use
 
-In Claude Code, type:
 ```
 /ai-native-review
 ```
 
-Then describe the tool you're about to build, or point Claude to an existing tool's code.
+Then describe the tool you're building, or point Claude to existing code.
 
-## Example Output
+## What You Get
 
-See [examples/ob-scale-review-report.md](examples/ob-scale-review-report.md) for a full review of a questionnaire review Skill that identified:
-- Core judgment tasks correctly assigned to AI ✅
-- Missing evidence citation mechanism
-- Missing confidence scoring
-- Checklist mentality risk (15 error types limiting holistic judgment)
-- Cost-benefit analysis per review mode
+| Section | What It Tells You |
+|---------|------------------|
+| **Task Decomposition** | Every subtask tagged: 🧠 judgment / ⚙️ code / 👤 human |
+| **Findings with Provenance** | Which test found what, with code-level evidence |
+| **Priority Matrix** | P0 (fix now) → P3 (someday) — no ambiguity about what to do first |
+| **"Is AI-Native Worth It?"** | Cost-benefit per subtask: rule replacement cost vs AI running cost |
+| **Drift Risk** | Where future developers will be tempted to "add a quick rule" |
+| **Migration Path** | If AI-decorated: phased plan with rollback (Phase 1→2→3) |
 
-## What's in the Box
+## Anti-Patterns Detected
 
-| File | Description |
-|------|-------------|
-| `skills/ai-native-review-en/skill.md` | English Skill (recommended) |
-| `skills/ai-native-review-zh/skill.md` | Chinese Skill (中文版) |
-| `rules/ai-native-design.md` | Companion global rule for AI-native design principles |
-| `examples/` | Real review reports |
+| Anti-Pattern | Example |
+|-------------|---------|
+| AI orchestration + rule execution | AI designs flow, regex does the checking |
+| Regex replacing judgment | `regex.test(content)` for quality assessment |
+| Template replacing generation | `template.replace('{x}', value)` instead of LLM |
+| if-else for business decisions | `if (score > 0.8) good` instead of AI reasoning |
+| Keyword matching replacing understanding | `text.includes('keyword')` for semantic tasks |
+| Unstructured AI output | No JSON schema, no evidence, no confidence |
 
-## The Framework Behind It
+**Domain exemptions** built in: compliance, security, real-time, data masking, financial calculation — rules are the correct choice in these domains.
 
-This Skill is grounded in research from industry leaders:
+## Grounded In
 
-- **Andrej Karpathy** — Software 3.0: the context window as the new program
-- **Simon Willison** — Evals as discipline, structured output, prompt injection awareness
-- **Ethan Mollick** — Delegation framework (when is AI worth the cost?)
-- **Nikola Balic (nibzard)** — 12 AI-native design principles (malleability, provenance, remixability)
-- **Alfonso Graziano** — Context engineering, spec-driven development, harness engineering
+| Source | Contribution |
+|--------|-------------|
+| [Andrej Karpathy](https://karpathy.bearblog.dev/sequoia-ascent-2026/) — Software 3.0 | Context window as the new program |
+| [Simon Willison](https://simonwillison.net/2025/May/15/building-on-llms/) — Evals | Evaluation as discipline, structured output |
+| [Ethan Mollick](https://www.oneusefulthing.org/) — Delegation | When is AI worth the cost? |
+| [nibzard](https://thinking.inc/en/blue-ocean/ai-native/) — Design Principles | Malleability, provenance, data flywheel |
+| [Graziano](https://medium.com/@alfonso.graziano) — Context Engineering | Harness design, spec-driven development |
 
-See the companion rule (`rules/ai-native-design.md`) for the full framework with 8 sections covering decision frameworks, capability allocation, architecture patterns, reliability design, cost awareness, interaction design, anti-pattern detection, and a design checklist.
+## 中文说明
+
+### 这个工具解决什么问题？
+
+当你让 AI 帮你构建工具/Skill 时，AI 有一个严重的倾向：**写规则（regex、if/else、模板）来执行核心工作，而不是用自己的推理能力**。结果是"聪明人指挥傻子干活"——AI 设计了工作流，但核心判断用的是死规则。
+
+### 怎么安装
+
+```bash
+git clone https://github.com/gtskevin/ai-native-review.git
+mkdir -p ~/.claude/skills/ai-native-review
+cp ai-native-review/skill.md ~/.claude/skills/ai-native-review/skill.md
+
+# 可选：安装配套设计规则（每次会话自动生效）
+cp ai-native-review/rules/ai-native-design.md ~/.claude/rules/ai-native-design.md
+```
+
+### 怎么使用
+
+在 Claude Code 中输入 `/ai-native-review`，然后描述你要构建的工具，或指向已有代码。
+
+### 核心测试逻辑
+
+对每个需要判断力的子任务，走决策树：
+
+1. **删除测试** — 删掉 AI 调用还能工作吗？能 → ❌ 装饰的
+2. **升级测试** — 更好的模型会让结果更好吗？不会 → ❌ 核心 AI 没做
+3. **上下文测试** — AI 获得了足够的信息吗？没有 → ⚠️ 上下文不足
+4. **软规则测试** — prompt 比硬编码规则灵活吗？不 → ❌ 伪装的规则
+
+### 产出什么
+
+结构化报告：子任务分解 → 发现问题（带溯源证据）→ 优先级行动矩阵 → 成本效益分析 → 漂移风险标记 → 分阶段迁移路径
 
 ## License
 
