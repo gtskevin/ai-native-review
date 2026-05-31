@@ -1,13 +1,13 @@
 #!/bin/bash
-# Install repo-showcase skill for Codex and/or Claude Code
+# Install ai-native-review skill for Codex and/or Claude Code
 set -e
 
-REPO_URL="https://github.com/gtskevin/repo-showcase"
-SKILL_NAME="repo-showcase"
+REPO_URL="https://github.com/gtskevin/ai-native-review"
+SKILL_NAME="ai-native-review"
 CODEX_SKILL_DIR="${CODEX_HOME:-$HOME/.codex}/skills/$SKILL_NAME"
 CLAUDE_SKILL_DIR="$HOME/.claude/skills/$SKILL_NAME"
 
-echo "✨ Installing repo-showcase skill..."
+echo "✨ Installing ai-native-review skill..."
 
 install_to() {
     local dest="$1"
@@ -19,11 +19,11 @@ install_to() {
         fi
         rm -rf "$dest"
     fi
-    mkdir -p "$(dirname "$dest")"
+    mkdir -p "$dest"
     # Download as zip (no git required)
     local tmpdir=$(mktemp -d)
     curl -fsSL "$REPO_URL/archive/refs/heads/main.tar.gz" | tar xz -C "$tmpdir"
-    mv "$tmpdir"/*/"$SKILL_NAME"/* "$dest/" 2>/dev/null || mv "$tmpdir"/*/* "$dest/"
+    cp -R "$tmpdir"/*/. "$dest/"
     rm -rf "$tmpdir"
     echo "   ✅ Installed to $label"
 }
@@ -50,4 +50,4 @@ fi
 
 echo ""
 echo "🎉 Done! Restart Codex / Claude Code to activate the skill."
-echo "   Then say: \"Beautify my GitHub repo before I publish it\""
+echo "   Then ask: \"Review this design for AI-native quality\""
