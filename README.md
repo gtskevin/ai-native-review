@@ -204,7 +204,13 @@ Found a new anti-pattern? Want to add domain-specific rules? Contributions welco
 
 If this skill saved your project from building AI-decorated tools, give it a ⭐!
 
-[![Star History Chart](https://api.star-history.com/svg?repos=gtskevin/ai-native-review&type=Date)](https://star-history.com/#gtskevin/ai-native-review&Date)
+<div align="center">
+
+[![GitHub Stars](https://img.shields.io/github/stars/gtskevin/ai-native-review?style=for-the-badge&logo=github&color=f59e0b&label=%E2%AD%90%20Star%20History)](https://star-history.com/#gtskevin/ai-native-review&Date)
+
+**[↑ Click to view interactive Star History chart →](https://star-history.com/#gtskevin/ai-native-review&Date)**
+
+</div>
 
 ---
 
