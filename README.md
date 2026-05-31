@@ -297,6 +297,7 @@ ai-native-review/
 ├── examples/
 │   └── ob-scale-review-report.md        # Real review report
 ├── tests/
+│   ├── test_dual_dimension_framework.sh
 │   ├── test_install_compatibility.sh
 │   └── test_install_smoke.sh
 ├── install.sh
@@ -592,6 +593,7 @@ ai-native-review/
 ├── examples/
 │   └── ob-scale-review-report.md        # 真实审查报告
 ├── tests/
+│   ├── test_dual_dimension_framework.sh
 │   ├── test_install_compatibility.sh
 │   └── test_install_smoke.sh
 ├── install.sh

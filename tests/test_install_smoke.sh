@@ -30,6 +30,10 @@ do
   test "$(basename "$(find "$skill_dir" -maxdepth 1 -iname 'skill.md' -print)")" = "SKILL.md"
   test -f "$skill_dir/rules/ai-native-design.md"
   test -f "$skill_dir/.gitignore"
+  grep -Fq "AI-native intelligence" "$skill_dir/SKILL.md"
+  grep -Fq "AI-native interaction" "$skill_dir/SKILL.md"
+  grep -Fq "Goal → Plan → Act → Confirm" "$skill_dir/SKILL.md"
+  grep -Fq "AI-native 交互" "$skill_dir/rules/ai-native-design.md"
 done
 
 echo "isolated install smoke test passed"
