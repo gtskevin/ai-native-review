@@ -50,14 +50,14 @@ AI (without this skill):               AI (with this skill):
 curl -fsSL https://raw.githubusercontent.com/gtskevin/ai-native-review/main/install.sh | bash
 ```
 
-Auto-installs skill + companion design rule to `~/.claude/skills/`.
+Auto-installs the skill + companion design rule for Codex and/or Claude Code when detected.
 
 **Option B — Manual install:**
 
 ```bash
 git clone https://github.com/gtskevin/ai-native-review.git
 mkdir -p ~/.claude/skills/ai-native-review
-cp ai-native-review/skill.md ~/.claude/skills/ai-native-review/
+cp ai-native-review/SKILL.md ~/.claude/skills/ai-native-review/
 cp -r ai-native-review/rules ~/.claude/skills/ai-native-review/
 cp -r ai-native-review/examples ~/.claude/skills/ai-native-review/
 rm -rf ai-native-review
@@ -168,7 +168,7 @@ Reviewing a questionnaire-checking Skill ([full report](examples/ob-scale-review
 <details>
 <summary>🤔 Does this work with Codex or only Claude Code?</summary>
 
-Currently Claude Code only (uses the `/ai-native-review` command). Codex support planned.
+Yes. The installer detects Codex and Claude Code and installs the same `SKILL.md` bundle for either environment. In Claude Code, use `/ai-native-review`. In Codex, ask to review a design for AI-native quality.
 </details>
 
 <details>
@@ -225,7 +225,7 @@ If this skill saved your project from building AI-decorated tools, give it a ⭐
 
 ```
 ai-native-review/
-├── skill.md                              # The review skill (main)
+├── SKILL.md                              # The review skill (main)
 ├── rules/
 │   └── ai-native-design.md              # Companion design rule
 ├── examples/
@@ -266,7 +266,7 @@ curl -fsSL https://raw.githubusercontent.com/gtskevin/ai-native-review/main/inst
 # 或手动安装
 git clone https://github.com/gtskevin/ai-native-review.git
 mkdir -p ~/.claude/skills/ai-native-review
-cp ai-native-review/skill.md ~/.claude/skills/ai-native-review/
+cp ai-native-review/SKILL.md ~/.claude/skills/ai-native-review/
 cp -r ai-native-review/rules ~/.claude/skills/ai-native-review/
 rm -rf ai-native-review
 ```
